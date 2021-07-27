@@ -34,8 +34,10 @@ def all_packages(request):
 
 def package_details(request, id):
     data = get_object_or_404(Package,pk=id)
-    user_packages = [ item.package.pk for item in Book.objects.filter(user=request.user,package_id=id)]
-    return render(request, 'dashboard/package_details.html',{'package':data,'user_packages':user_packages})
+    if not request.user.is_anonymous:
+        user_packages = [ item.package.pk for item in Book.objects.filter(user=request.user,package_id=id)]
+        return render(request, 'dashboard/package_details.html',{'package':data,'user_packages':user_packages})
+    return render(request, 'dashboard/package_details.html',{'package':data})
 
 @login_required
 def org_packages(request, org):
@@ -57,11 +59,8 @@ def org_package_edit(request, package):
             pkg.title = request.POST.get('title',package.title)
             pkg.location = request.POST.get('location',package.location)
             pkg.seats = request.POST.get('seats',package.seats)
-            pkg.image = request.FILES.get('image','')
-            if request.POST['date'] == '':
-                pkg.date=None
-            else:
-                pkg.date = request.POST['date']
+            pkg.image = request.FILES.get('image',package.image)
+            pkg.date = request.POST.get('date',package.date)
             pkg.description = request.POST.get('description',package.description)
             pkg.save()
 
