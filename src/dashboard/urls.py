@@ -15,6 +15,11 @@ urlpatterns = [
     path('book/<int:package_id>/', views.book_package, name="book-package"),
     path('book/<int:package_id>/cancel/', views.cancel_package, name="cancel-package"),
     path('booked-packages/', views.booked_packages, name="booked-packages"),
+    
+    
+    # report_problem
+    
+    path('report/',views.report_problem,name="report-problem"),
 
 
 ]   

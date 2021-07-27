@@ -35,7 +35,7 @@
                         {% if not request.user.is_authenticated %}
                             <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'places' %}"">Places</a></li>
                             <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'packages' %}">Packages</a></li>
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Report a problem</a></li>
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'report-problem' %}">Report a problem</a></li>
                             <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/accounts/login/">Login</a></li>
 
                         {% else %}
@@ -61,7 +61,7 @@
                                   {{request.user.email}}
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/accounts/logout/">Report a problem</a>
+                                    <a class="dropdown-item" href="{% url 'report-problem' %}">Report a problem</a>
                                     <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
                                     <a class="dropdown-item" href="/accounts/logout/">Logout</a>
                                 </div>

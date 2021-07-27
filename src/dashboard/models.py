@@ -3,6 +3,21 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
+class ReportProblem(models.Model):
+    email = models.EmailField(max_length=200)
+    issue = models.CharField(max_length=100)
+    description = models.TextField(null=False)
+    
+    def __str__(self):
+        return self.issue
+
+
+class Tips(models.Model):
+    tips = models.CharField(max_length=250)
+    
+    def __str__(self):
+        return self.tips
+
 class Package(models.Model):
     title = models.CharField(max_length=100)
     location = models.CharField(max_length=200)

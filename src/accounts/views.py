@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Profile
+from dashboard.models import Tips
 
 
 @login_required
@@ -16,7 +17,8 @@ def profile(request):
 @login_required
 def create_profile(request):
     if request.method == 'GET':
-        return render(request, 'accounts/create_profile.html')
+        tip = Tips.objects.order_by('?').first()
+        return render(request, 'accounts/create_profile.html',{'tip':tip})
     data = request.POST
     profile = Profile()
     profile.user = request.user

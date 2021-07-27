@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
-from .models import Package, Book
+from .models import Package, Book, ReportProblem, Tips
 
 """
 Default home page
@@ -30,7 +30,8 @@ def add_packages(request):
 
 def all_packages(request):
     data = Package.objects.all();
-    return render(request, 'dashboard/packages.html',{'data':data})
+    tip = Tips.objects.order_by('?').first()
+    return render(request, 'dashboard/packages.html',{'data':data,'tip':tip})
 
 def package_details(request, id):
     data = get_object_or_404(Package,pk=id)
@@ -100,3 +101,21 @@ def cancel_package(request, package_id):
 def booked_packages(request):
     packages = Book.objects.filter(user=request.user)
     return render(request,'dashboard/booked_packages.html',{'packages':packages})
+
+"""
+Report a problem
+"""
+
+def report_problem(request):
+    if request.method == "GET":
+        tip = Tips.objects.order_by('?').first()
+        return render(request,'dashboard/report_problem.html',{'tip':tip})
+    if request.user.is_anonymous:
+        email = request.POST['email']
+    else:
+        email = request.user.email
+    issue = request.POST['issue']
+    description = request.POST['description']
+    ReportProblem.objects.create(email=email,issue=issue,description=description);
+    return render(request, 'dashboard/success_submit.html')
+        

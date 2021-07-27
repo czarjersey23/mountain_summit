@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid p-0 fix">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Tell us about the issue</h2>
+            <form method="POST" action="{% url 'report-problem' %}">
+
+                {% csrf_token %}
+                {% if request.user.is_anonymous %}
+                <div class="form-group">
+                    <label>email</label>
+                    <input type="email" class="form-control" name="email" placeholder="email" required>
+                </div>
+                <br> 
+                {% endif %}
+
+                <div class="form-group">
+                  <label>Issue</label>
+                  <input type="text" class="form-control" name="issue" placeholder="issue*" required>
+                </div>
+                <br>
+
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" name="description" id="" cols="30" rows="10" required></textarea>
+                </div>
+               
+                <br>
+
+                <button type="submit" class="btn btn-primary">Report</button>
+              </form>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <br><br>
+            <h4><i>{{ tip.tips }}</i></h4>
+        </div>
+    </div>
+</div>
+{% endblock %}

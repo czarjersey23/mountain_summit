@@ -4,7 +4,7 @@
 <div class="row justify-content">
     {% if data %}
         {% for package in data %}
-            <div class="col-md-6 col-lg-3 m-2">
+            <div class="col-md-9 col-lg-3 m-2">
                 <div class="card">
                     <img class="card-img-top" src="/media/{{package.image}}" alt="Card image cap" style="width: 100%;height: 350px;">
                     <div class="card-body">
@@ -15,6 +15,9 @@
                     <p>{{package.date}}</p>             
                     </div>
                 </div>
+            </div>
+            <div class="col-md-3">
+                <h3><i>{{ tip.tips }}</i></h4>
             </div>
         {% endfor %}
 
